@@ -15,11 +15,6 @@ namespace CrashReporterTest
         [STAThread]
         static void Main()
         {
-            Application.ThreadException += (sender, args) => SendReport(args.Exception);
-            AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
-                {
-                    SendReport((Exception)args.ExceptionObject);
-                };
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             _reportCrash = new ReportCrash("Email where you want to receive crash reports")
@@ -28,20 +23,25 @@ namespace CrashReporterTest
                 ShowScreenshotTab = true,
                 IncludeScreenshot = false,
                 #region Optional Configuration
-                WebProxy = new WebProxy("Web proxy address, if needed"),
-                AnalyzeWithDoctorDump = true,
-                DoctorDumpSettings = new DoctorDumpSettings
-                {
-                    ApplicationID = new Guid("Application ID you received from DrDump.com"),
-                    OpenReportInBrowser = true
-                }
+                //WebProxy = new WebProxy("Web proxy address, if needed"),
+                //AnalyzeWithDoctorDump = true,
+                //DoctorDumpSettings = new DoctorDumpSettings
+                //{
+                //    ApplicationID = new Guid("Application ID you received from DrDump.com"),
+                //    OpenReportInBrowser = true
+                //}
                 #endregion
             };
+            Application.ThreadException += (sender, args) => SendReport(args.Exception);
+            AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
+                                                          {
+                                                            SendReport((Exception)args.ExceptionObject);
+                                                          };
             _reportCrash.RetryFailedReports();
             Application.Run(new FormMain());
         }
 
-        public static void SendReport(Exception exception, string developerMessage = "")
+    public static void SendReport(Exception exception, string developerMessage = "")
         {
             _reportCrash.DeveloperMessage = developerMessage;
             _reportCrash.Silent = false;
