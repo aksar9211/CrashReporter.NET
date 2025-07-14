@@ -6,6 +6,7 @@ using System.IO;
 namespace CrashReporterTest
 {
   using System.Collections.Generic;
+  using System.Data.SqlClient;
 
   public partial class FormMain : Form
     {
