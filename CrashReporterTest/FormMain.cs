@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Windows.Forms;
 using System.IO;
@@ -10,6 +10,9 @@ namespace CrashReporterTest
 
   public partial class FormMain : Form
     {
+        /// <summary>
+        /// Initializes a new instance of the FormMain class and sets up the form's UI components.
+        /// </summary>
         public FormMain()
         {
             InitializeComponent();
@@ -26,6 +29,9 @@ namespace CrashReporterTest
             thread.Start();
         }
 
+        /// <summary>
+        /// Throws an <see cref="ArgumentException"/> and, if a specific file does not exist, throws a <see cref="FileNotFoundException"/> with the original exception as the inner exception.
+        /// </summary>
         private void ThrowException()
         {
             try
@@ -49,11 +55,22 @@ namespace CrashReporterTest
     {
       private string _connStr;
 
+      /// <summary>
+      /// Initializes a new instance of the CustomerService class with the specified database connection string.
+      /// </summary>
+      /// <param name="connStr">The connection string used to connect to the database.</param>
       public CustomerService(string connStr)
       {
         _connStr = connStr;
       }
 
+      /// <summary>
+      /// Retrieves customer names from the database for the specified customer IDs, with optional filtering by prefix and case conversion.
+      /// </summary>
+      /// <param name="ids">A list of customer IDs to look up.</param>
+      /// <param name="uppercase">If true, converts each customer name to uppercase.</param>
+      /// <param name="filterPrefix">If provided, only includes names that start with this prefix.</param>
+      /// <returns>A list of customer names matching the specified criteria.</returns>
       public List<string> GetCustomerNames(List<string> ids, bool uppercase, string filterPrefix = null)
       {
         var output = new List<string>();
