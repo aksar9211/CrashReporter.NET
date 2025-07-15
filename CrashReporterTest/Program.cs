@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net;
 using System.Windows.Forms;
 using CrashReporterDotNET;
@@ -11,6 +11,8 @@ namespace CrashReporterTest
 
         /// <summary>
         /// The main entry point for the application.
+        /// <summary>
+        /// Initializes the application, configures crash reporting, registers global exception handlers, and starts the main form.
         /// </summary>
         [STAThread]
         static void Main()
@@ -41,7 +43,12 @@ namespace CrashReporterTest
             Application.Run(new FormMain());
         }
 
-    public static void SendReport(Exception exception, string developerMessage = "")
+    /// <summary>
+        /// Sends a crash report for the specified exception, displaying the reporting UI to the user.
+        /// </summary>
+        /// <param name="exception">The exception to report.</param>
+        /// <param name="developerMessage">An optional message to include for developers.</param>
+        public static void SendReport(Exception exception, string developerMessage = "")
         {
             _reportCrash.DeveloperMessage = developerMessage;
             _reportCrash.Silent = false;
